@@ -16,7 +16,7 @@ function App() {
   const [products, setProducts] = useState<ProductState[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const totalCount = 10;
-  const lastIndex = totalCount - currentPage;
+  const lastIndex = totalCount * currentPage;
   const firstIndex = lastIndex - totalCount;
   const totalPages = products.length / totalCount;
   const productList = products.slice(firstIndex, lastIndex);
@@ -42,7 +42,7 @@ function App() {
     <>
       <div>
         <div className="min-h-screen max-width bg-white shadow-2xl grid grid-cols-12 gap-4 items-center justify-items-center">
-          {products.map((items: ProductState) => (
+          {productList.map((items: ProductState) => (
             <>
               <div key={items.id} className="col-span-3 border border-gray-200 rounded-2xl max-h-125 m-2">
                 <img src={items.image} alt="product-img" className=" object-cover rounded-xl h-40 w-40 px-6 py-6" />
@@ -73,10 +73,10 @@ function App() {
           ))}
         </div>
         <div className="flex justify-center gap-4 bg-white p-5">
-          <button className="border rounded p-2" disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev + 1)}>
+          <button className="border rounded p-2" disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
             prev
           </button>
-          <button className="border rounded p-2" disabled={currentPage === totalPages} onClick={() => setCurrentPage((prev) => prev - 1)}>
+          <button className="border rounded p-2" disabled={currentPage === totalPages} onClick={() => setCurrentPage((prev) => prev + 1)}>
             next
           </button>
         </div>
